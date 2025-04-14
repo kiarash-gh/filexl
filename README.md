@@ -23,9 +23,9 @@ A simple Python CLI tool to list all files in a given directory and export them 
 ## 🧰 Installation
 
 ```bash
-git clone https://github.com/yourusername/filexl.git
+git clone https://github.com/kiarash-gh/filexl
 cd filexl
-pip install -e .
+pip install .
 ```
 
 ## 📦 Usage
