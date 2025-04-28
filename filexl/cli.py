@@ -44,6 +44,26 @@ def save_duplicates(df, filename):
     else:
         print("No duplicate file names found.")
 
+def extract_duplicates_from_excel(input_file, output_file="duplicates.xlsx"):
+    if not os.path.exists(input_file):
+        print(f"Error: File '{input_file}' does not exist.")
+        return
+
+    df = pd.read_excel(input_file)
+
+    if 'File Name' not in df.columns:
+        print("Error: 'File Name' column not found in the Excel file.")
+        return
+
+    duplicates = df[df.duplicated(subset='File Name', keep=False)]
+    duplicates = duplicates.sort_values(by='File Name')
+
+    if duplicates.empty:
+        print("No duplicate file names found.")
+    else:
+        duplicates.to_excel(output_file, index=False)
+        print(f"Duplicate records written to '{output_file}'.")
+
 def main():
     parser = argparse.ArgumentParser(description="List files and export to Excel.")
     parser.add_argument("--path", required=True, help="Path to list files from.")
@@ -58,6 +78,8 @@ def main():
     help="Export only duplicated file names. Optionally provide filename (default: duplicates.xlsx)."
 )
     parser.add_argument("--ignore-case", action="store_true", help="Make extension filtering case-insensitive.")
+    parser.add_argument('--extract-duplicates-from', help="Excel file to extract duplicates from")
+    parser.add_argument('--out', help="Output Excel file for duplicates (default: duplicates.xlsx)")
 
     args = parser.parse_args()
 
@@ -66,6 +88,10 @@ def main():
         for ext in args.ext:
             extensions.extend(ext.split(','))
         extensions = [e if e.startswith('.') else f'.{e}' for e in extensions]
+    
+    if args.extract_duplicates_from:
+        extract_duplicates_from_excel(args.extract_duplicates_from, args.out or "duplicates.xlsx")
+        return
 
     df = list_files(args.path, args.name, extensions or None, args.ignore_case)
     save_to_excel(df, args.filename, append=True)
