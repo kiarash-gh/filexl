@@ -23,10 +23,20 @@ A simple Python CLI tool to list all files in a given directory and export them 
 ## 🧰 Installation
 
 ```bash
-git clone https://github.com/kiarash-gh/filexl
-cd filexl
-pip install .
+pip install filexl
 ```
+
+## ⚙️ Options
+
+| Option | Description |
+|:-------|:------------|
+| `--extensions` | Filter files by specific extensions (e.g., `.jpg .png`) |
+| `--case-sensitive` | Match extensions case-sensitively |
+| `--only-duplicates` | Save only files with duplicate file names |
+| `--extract-duplicates-from` | Create a new Excel file containing only duplicates from an existing Excel file |
+| `--out` | Output Excel file name for extracted duplicates |
+| `--help` | Show help message and usage instructions |
+
 
 ## 📦 Usage
 
@@ -57,6 +67,12 @@ filexl --path D:\data --only-duplicates
 filexl --path D:\data --only-duplicates mydups.xlsx
 
 ```
+
+Extract Duplicates from an Existing Excel
+```
+filexl --extract-duplicates-from myfiles.xlsx --out only_duplicates.xlsx
+```
+This command reads myfiles.xlsx, finds duplicate file names, and writes them to only_duplicates.xlsx.
 
 ## 🧪 Example Output
 
