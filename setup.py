@@ -4,6 +4,8 @@ setup(
     name='filexl',
     version='1.0.0',
     description='CLI tool to list files and export to Excel',
+    long_description=open("README.md", encoding="utf-8").read(),
+    long_description_content_type="text/markdown",
     author='Kiarash Gharahgozloo',
     author_email='kiarash.gh@gmail.com',
     url='https://github.com/kiarash-gh/filexl',
